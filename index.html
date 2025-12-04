@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Scroll For An Image Gallery</title>
+    <!-- <link rel="stylesheet" href="image-scroll.css"> -->
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    background: #191919;
+}
+
+.gallery-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5% auto;
+    flex-wrap: wrap; /* allows buttons to move under gallery on small screens */
+}
+
+.gallery{
+    width: 90%;
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+
+/* Hide scrollbar */
+.gallery::-webkit-scrollbar{
+    display: none;
+}
+
+.gallery div{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 15px;
+    padding: 10px;
+    flex: none;
+}
+
+.gallery div img{
+    width: 100%;
+    filter: grayscale(100%);
+    transition: transform 0.5s, filter 0.5s;
+    border-radius: 8px;
+}
+
+.gallery div img:hover{
+    filter: grayscale(0);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+#backBtn, #nextBtn{
+    width: 40px;
+    cursor: pointer;
+    margin: 20px;
+    transition: transform 0.3s;
+}
+
+#backBtn:hover, #nextBtn:hover{
+    transform: scale(1.1);
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 768px){
+    #backBtn, #nextBtn{
+        width: 35px;
+        margin: 10px;
+    }
+    .gallery div{
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-gap: 10px;
+    }
+}
+
+@media (max-width: 480px){
+    .gallery-wrap{
+        flex-direction: column;
+    }
+    #backBtn, #nextBtn{
+        width: 30px;
+        margin: 10px 0;
+    }
+    .gallery div{
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-gap: 8px;
+    }
+}
+</style>
+
+
+
+
+</head>
+<body>
+    <div class="gallery-wrap">
+        <img src="assets/prev.png" id="backBtn">
+          <div class="gallery">
+        <div>
+            <span><img src="assets/clothes1.jpg"></span>
+            <span><img src="assets/clothes2.jpg"></span>
+            <span><img src="assets/clothes3.jpg"></span>
+        </div>
+        <div>
+            <span><img src="assets/clothes4.jpg"></span>
+            <span><img src="assets/clothes5.jpg"></span>
+        </div>
+    </div>
+        <img src="assets/next.png" id="nextBtn">
+    </div>
+  
+    <script>
+        let scrollContainer =document.querySelector(".gallery");
+        let backBtn = document.getElementById("backBtn");
+        let nextBtn = document.getElementById("nextBtn");
+
+        scrollContainer.addEventListener("wheel", (evt) => {
+            evt.preventDefault();
+            scrollContainer.scrollLeft += evt.deltaY;
+             scrollContainer.style.scrollBehaviour = "auto";
+        });
+
+        nextBtn.addEventListener("click", ()=>{
+            scrollContainer.style.scrollBehaviour = "smooth";
+            scrollContainer.scrollLeft += 900;
+        });
+
+         backBtn.addEventListener("click", ()=>{
+            scrollContainer.style.scrollBehaviour = "smooth";
+            scrollContainer.scrollLeft -= 900;
+        })
+    </script>
+</body>
+</html>
